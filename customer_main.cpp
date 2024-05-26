@@ -30,7 +30,7 @@ customer_main::customer_main(QWidget *parent)
         QString picture_file_path = getinfo->getPicture_restaurant("id", id);
         component_restaurant_information* restaurant_information = new component_restaurant_information(name, location, picture_file_path, rank);
         connect(restaurant_information, &component_restaurant_information::enter, [&](QString name){
-            customer_choose_dishes* choose = new customer_choose_dishes(name, this);
+            customer_choose_dishes* choose = new customer_choose_dishes(userID, name, this);
             this->hide();
             connect(choose,&customer_choose_dishes::subClose,this, &QMainWindow::show);
             choose->setAttribute(Qt::WA_DeleteOnClose);

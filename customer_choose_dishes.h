@@ -12,7 +12,7 @@ class customer_choose_dishes : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit customer_choose_dishes(QString name, QWidget *parent = nullptr);
+    explicit customer_choose_dishes(QString customer_id, QString restaurant_name, QWidget *parent = nullptr);
     ~customer_choose_dishes();
     void addAmount(double price);
 

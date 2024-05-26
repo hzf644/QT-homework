@@ -7,7 +7,7 @@
 #include<QMessageBox>
 #include<vector>
 
-customer_choose_dishes::customer_choose_dishes(QString name,  QWidget *parent)
+customer_choose_dishes::customer_choose_dishes(QString userID, QString name,  QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::customer_choose_dishes)
 {
@@ -34,6 +34,14 @@ customer_choose_dishes::customer_choose_dishes(QString name,  QWidget *parent)
     }
 
     connect(ui->pushButton, &QPushButton::clicked, [&](){
+        QString destination = getinfo->getLocation_customer("id", userID);
+        QString startLocation = getinfo->getLocation_restaurant("name", name);
+        QString customer_name = getinfo->getName_customer("id", userID);
+        QString restaurant_name = name;
+        getinfo->addOrder(startLocation, restaurant_name, destination, customer_name);
+
+        getinfo->editProfits_restaurant("name", restaurant_name, amount);
+
         QMessageBox ms;
         ms.setText("确认付款");
         ms.setAttribute(Qt::WA_DeleteOnClose);
