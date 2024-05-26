@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -22,6 +23,8 @@ class Ui_customer_main
 {
 public:
     QWidget *centralwidget;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -29,13 +32,21 @@ public:
     {
         if (customer_main->objectName().isEmpty())
             customer_main->setObjectName("customer_main");
-        customer_main->resize(800, 600);
+        customer_main->resize(450, 800);
         centralwidget = new QWidget(customer_main);
         centralwidget->setObjectName("centralwidget");
+        scrollArea = new QScrollArea(centralwidget);
+        scrollArea->setObjectName("scrollArea");
+        scrollArea->setGeometry(QRect(0, 0, 390, 800));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 388, 798));
+        scrollArea->setWidget(scrollAreaWidgetContents);
         customer_main->setCentralWidget(centralwidget);
         menubar = new QMenuBar(customer_main);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 17));
+        menubar->setGeometry(QRect(0, 0, 450, 17));
         customer_main->setMenuBar(menubar);
         statusbar = new QStatusBar(customer_main);
         statusbar->setObjectName("statusbar");

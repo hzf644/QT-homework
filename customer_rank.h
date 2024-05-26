@@ -12,10 +12,14 @@ class customer_rank : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit customer_rank(QWidget *parent = nullptr);
+    explicit customer_rank(QString restaurant_name, QWidget *parent = nullptr);
     ~customer_rank();
 
+signals:
+    void subClose();
+
 private:
+    void closeEvent(QCloseEvent*);
     Ui::customer_rank *ui;
 };
 
