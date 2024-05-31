@@ -32,8 +32,6 @@ void log_in::on_login_clicked()
     bool already_find = 0;
     for(auto p = all_customer_id.begin(); p != all_customer_id.end();p++){
         if(getinfo_c->exits(ui->id->text(), "customer")){
-            QString id = *p;
-            QString password = getinfo_c->getPassword_customer("id", id);
             if(getinfo_c->match(ui->id->text(), ui->password->text(), "customer")){
                 customer_main *ptrcustomer = new customer_main(this);
                 ptrcustomer->show();
@@ -48,8 +46,6 @@ void log_in::on_login_clicked()
     if(!already_find){
         for(auto p = all_restaurant_id.begin(); p != all_restaurant_id.end();p++){
             if(getinfo_r->exits(ui->id->text(), "restaurant")){
-                QString id = *p;
-                QString password = getinfo_c->getPassword_restaurant("id", id);
                 if(getinfo_r->match(ui->id->text(), ui->password->text(), "restaurant")){
                     restaurant_main *ptrrestaurant = new restaurant_main(this);
                     ptrrestaurant->show();
@@ -65,8 +61,6 @@ void log_in::on_login_clicked()
     if(!already_find){
         for(auto p = all_deliveryman_id.begin(); p != all_deliveryman_id.end();p++){
             if(getinfo_d->exits(ui->id->text(), "deliveryman")){
-                QString id = *p;
-                QString password = getinfo_c->getPassword_deliveryman("id", id);
                 if(getinfo_d->match(ui->id->text(), ui->password->text(), "deliveryman")){
                     delivery_main *ptrdeliveryman = new delivery_main(this);
                     ptrdeliveryman->show();
