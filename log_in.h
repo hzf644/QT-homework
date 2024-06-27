@@ -2,7 +2,7 @@
 #define LOG_IN_H
 
 #include <QMainWindow>
-
+#include<QButtonGroup>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class log_in;
@@ -16,6 +16,7 @@ class log_in : public QMainWindow
 public:
     log_in(QWidget *parent = nullptr);
     ~log_in();
+    QButtonGroup* bg = new QButtonGroup(this);
 
 private slots:
     void on_login_clicked();

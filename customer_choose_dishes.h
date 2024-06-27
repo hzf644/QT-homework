@@ -15,6 +15,7 @@ public:
     explicit customer_choose_dishes(QString customer_id, QString restaurant_name, QWidget *parent = nullptr);
     ~customer_choose_dishes();
     void addAmount(double price);
+    QString UserID;
 
 signals:
     void subClose();

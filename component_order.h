@@ -12,7 +12,7 @@ class component_order : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit component_order(QString id, QString restaurant, QString customer_location, QString restaurant_location, double profits, QWidget *parent = nullptr);
+    explicit component_order(QString id, QString restaurant, QString start_location, QString destination, double profits,QString delivery_man_name, QWidget *parent = nullptr);
     ~component_order();
 
 signals:
@@ -26,7 +26,7 @@ private:
     QString order_id;
     QString start_location;
     QString destination_location;
-    QString restaurant_id;
+    QString restaurant_name;
     double order_profits;
 };
 

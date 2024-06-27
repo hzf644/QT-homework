@@ -21,7 +21,10 @@ delivery_main::delivery_main(QWidget *parent)
         QString id = *p;
         QString startlocation = getinfo->getStartLocation("id", id);
         QString destination = getinfo->getDestination("id", id);
-        component_order* order_information = new component_order(id, startlocation, destination);
+        QString restaurant_name = getinfo->getRestaurantName_order("id", id);
+        QString customer_name = getinfo->getCustomerName_order("id", id);
+        QString delivery_man_name = getinfo->getDeliveryManName_order("id", id);
+        component_order* order_information = new component_order(id,restaurant_name, startlocation, destination);
         layout->addWidget(order_information);
     }
     ui->scrollAreaWidgetContents->setLayout(layout);

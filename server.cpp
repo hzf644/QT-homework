@@ -9,7 +9,7 @@ server::server()
     }
 }
 
-bool server::exits(QString id, QString type)
+bool server::exists(QString id, QString type)
 {
     bool ret = false;
     QString cmd = "select exists(select 1 from " + type + " where id = " + id;
@@ -139,6 +139,23 @@ double server::getRank_restaurant(QString column, T value)
     }
     else{
         ret = query.value(0).toDouble();
+    }
+    return ret;
+}
+
+template<class T>
+int server::getPeopleNumber_restaurant(QString column, T value)
+{
+    int ret;
+    QString cmd = "select people from restaurant where :column = :value";
+    query.prepare(cmd);
+    query.bindValue(":column", column);
+    query.bindValue(":value", value);
+    if(!query.exec()){
+        qDebug()<<"exec error: "<<cmd;
+    }
+    else{
+        ret = query.value(0).toInt();
     }
     return ret;
 }
@@ -465,12 +482,13 @@ void server::editPicture_dish(QString column, T value, QString new_file_path)
 
 
 
-void server::addOrder(QString start_location, QString restaurant_name, QString Destination, QString customer_name, bool is_taken, bool is_finished)
+void server::addOrder(QString start_location, QString restaurant_name, QString Destination, QString customer_name, bool is_taken, bool is_finished, QString delivery_man_name)
 {
-    QString cmd = "insert into order values(?, ?, ?, ?, ?, ?, ?)";
+    QString cmd = "insert into orderr values(?, ?, ?, ?, ?, ?, ?, ?)";
     query.prepare(cmd);
     QDateTime datetime = QDateTime::currentDateTime();
     QString id = datetime.toString("yyyyMMddhhmmss");
+    query.addBindValue(delivery_man_name);
     query.addBindValue(id);
     query.addBindValue(start_location);
     query.addBindValue(restaurant_name);
@@ -486,7 +504,7 @@ void server::addOrder(QString start_location, QString restaurant_name, QString D
 template<class T>
 void server::deleteOrder(QString column, T value)
 {
-    QString cmd = "delete from order where :column = :value";
+    QString cmd = "delete from orderr where :column = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -499,7 +517,7 @@ template<class T>
 bool server::is_taken(QString column, T value)
 {
     bool ret;
-    QString cmd = "select is_taken from order where :colum = :value";
+    QString cmd = "select is_taken from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -516,7 +534,7 @@ template<class T>
 bool server::is_finished(QString column, T value)
 {
     bool ret;
-    QString cmd = "select is_finished from order where :colum = :value";
+    QString cmd = "select is_finished from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -533,7 +551,7 @@ template<class T>
 QString server::getStartLocation(QString column, T value)
 {
     QString ret;
-    QString cmd = "select start_location from order where :colum = :value";
+    QString cmd = "select start_location from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -550,7 +568,7 @@ template<class T>
 QString server::getDestination(QString column, T value)
 {
     QString ret;
-    QString cmd = "select name from order where :colum = :value";
+    QString cmd = "select destination from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -567,7 +585,7 @@ template<class T>
 QString server::getCustomerName_order(QString column, T value)
 {
     QString ret;
-    QString cmd = "select customer_name from order where :colum = :value";
+    QString cmd = "select customer_name from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -584,7 +602,7 @@ template<class T>
 QString server::getRestaurantName_order(QString column, T value)
 {
     QString ret;
-    QString cmd = "select restaurant_name from order where :colum = :value";
+    QString cmd = "select restaurant_name from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -598,10 +616,10 @@ QString server::getRestaurantName_order(QString column, T value)
 }
 
 template<class T>
-QString server::getDeliveryName_order(QString column, T value)
+QString server::getDeliveryManName_order(QString column, T value)
 {
     QString ret;
-    QString cmd = "select delivery_name from order where :colum = :value";
+    QString cmd = "select delivery_man_name from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -617,7 +635,7 @@ QString server::getDeliveryName_order(QString column, T value)
 template<class T>
 void server::taken(QString column, T value)
 {
-    QString cmd = "update from order set is_taken = :a where :colum = :value";
+    QString cmd = "update from orderr set is_taken = :a where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -630,7 +648,7 @@ void server::taken(QString column, T value)
 template<class T>
 void server::finished(QString column, T value)
 {
-    QString cmd = "update from order set is_finished = :a where :colum = :value";
+    QString cmd = "update from orderr set is_finished = :a where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -643,7 +661,7 @@ void server::finished(QString column, T value)
 template<class T>
 void server::addDeliveryName_order(QString column, T value, QString delivery_name)
 {
-    QString cmd = "update from order set delivery_name = :path where :colum = :value";
+    QString cmd = "update from orderr set delivery_man_name = :path where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);

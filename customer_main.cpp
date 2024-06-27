@@ -32,6 +32,10 @@ customer_main::customer_main(QWidget *parent)
         connect(restaurant_information, &component_restaurant_information::enter, [&](QString name){
             customer_choose_dishes* choose = new customer_choose_dishes(userID, name, this);
             this->hide();
+            connect(this, &customer_main::sendID, choose, [&](){
+                choose->UserID = userID;
+            });
+            emit sendID();
             connect(choose,&customer_choose_dishes::subClose,this, &QMainWindow::show);
             choose->setAttribute(Qt::WA_DeleteOnClose);
             choose->show();

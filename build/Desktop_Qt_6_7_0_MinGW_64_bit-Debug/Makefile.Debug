@@ -3348,7 +3348,27 @@ debug/component_order.o: ../../component_order.cpp ../../component_order.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_component_order.h
+		ui_component_order.h \
+		../../server.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlDatabase \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqldatabase.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlglobal.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsql-config.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlexports.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlQuery \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlquery.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlError \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlerror.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QString \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QPixmap \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\component_order.o ..\..\component_order.cpp
 
 debug/component_restaurant_information.o: ../../component_restaurant_information.cpp ../../component_restaurant_information.h \
@@ -3748,11 +3768,17 @@ debug/customer_choose_dishes.o: ../../customer_choose_dishes.cpp ../../customer_
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../component_dish.h \
+		../../customer_rank.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QVBoxLayout \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qboxlayout.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayout.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayoutitem.h \
-		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QMessageBox \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qmessagebox.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qdialog.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qdialogbuttonbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\customer_choose_dishes.o ..\..\customer_choose_dishes.cpp
 
 debug/customer_main.o: ../../customer_main.cpp ../../customer_main.h \
@@ -3945,11 +3971,6 @@ debug/customer_main.o: ../../customer_main.cpp ../../customer_main.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		ui_customer_main.h \
-		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QVBoxLayout \
-		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qboxlayout.h \
-		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayout.h \
-		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayoutitem.h \
-		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h \
 		../../component_restaurant_information.h \
 		../../customer_choose_dishes.h \
 		../../server.h \
@@ -3966,7 +3987,12 @@ debug/customer_main.o: ../../customer_main.cpp ../../customer_main.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QPixmap \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
-		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\customer_main.o ..\..\customer_main.cpp
 
 debug/customer_rank.o: ../../customer_rank.cpp ../../customer_rank.h \
@@ -4158,7 +4184,36 @@ debug/customer_rank.o: ../../customer_rank.cpp ../../customer_rank.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_customer_rank.h
+		ui_customer_rank.h \
+		../../server.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlDatabase \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqldatabase.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlglobal.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsql-config.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlexports.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlQuery \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlquery.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlError \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlerror.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QString \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QPixmap \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QLineEdit \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlineedit.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qframe.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qtextcursor.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qtextformat.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qpen.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qtextoption.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QRegularExpressionValidator \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qvalidator.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qregularexpression.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QPushButton \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\customer_rank.o ..\..\customer_rank.cpp
 
 debug/delivery_main.o: ../../delivery_main.cpp ../../delivery_main.h \
@@ -4350,7 +4405,28 @@ debug/delivery_main.o: ../../delivery_main.cpp ../../delivery_main.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_delivery_main.h
+		ui_delivery_main.h \
+		../../server.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlDatabase \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqldatabase.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlglobal.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsql-config.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlexports.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlQuery \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlquery.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlError \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlerror.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QString \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QPixmap \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../component_order.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\delivery_main.o ..\..\delivery_main.cpp
 
 debug/main.o: ../../main.cpp ../../log_in.h \
@@ -4735,7 +4811,30 @@ debug/log_in.o: ../../log_in.cpp ../../log_in.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_log_in.h
+		ui_log_in.h \
+		../../server.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlDatabase \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqldatabase.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlglobal.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsql-config.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlexports.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlQuery \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlquery.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlError \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlerror.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QString \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QPixmap \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../customer_main.h \
+		../../restaurant_main.h \
+		../../delivery_main.h \
+		../../sign_up.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QMessageBox \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qmessagebox.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qdialog.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qdialogbuttonbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\log_in.o ..\..\log_in.cpp
 
 debug/restaurant_deal_with_orders.o: ../../restaurant_deal_with_orders.cpp ../../restaurant_deal_with_orders.h \
@@ -6037,7 +6136,26 @@ debug/sign_up.o: ../../sign_up.cpp ../../sign_up.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_sign_up.h
+		ui_sign_up.h \
+		../../server.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlDatabase \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqldatabase.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlglobal.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsql-config.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qtsqlexports.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlQuery \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlquery.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/QSqlError \
+		../../../../../../QT/6.7.0/mingw_64/include/QtSql/qsqlerror.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QString \
+		../../../../../../QT/6.7.0/mingw_64/include/QtGui/QPixmap \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/QTime \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/QMessageBox \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qmessagebox.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qdialog.h \
+		../../../../../../QT/6.7.0/mingw_64/include/QtWidgets/qdialogbuttonbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\sign_up.o ..\..\sign_up.cpp
 
 debug/moc_component_dish.o: debug/moc_component_dish.cpp 

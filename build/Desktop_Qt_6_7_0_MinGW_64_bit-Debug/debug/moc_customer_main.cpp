@@ -38,8 +38,8 @@ constexpr auto qt_meta_stringdata_CLASScustomer_mainENDCLASS = QtMocHelpers::str
     "customer_main",
     "sendID",
     "",
-    "id",
-    "setId"
+    "setId",
+    "id"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -60,16 +60,16 @@ Q_CONSTINIT static const uint qt_meta_data_CLASScustomer_mainENDCLASS[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x06,    1 /* Public */,
+       1,    0,   26,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       4,    1,   29,    2, 0x0a,    3 /* Public */,
+       3,    1,   27,    2, 0x0a,    2 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, QMetaType::QString,    4,
 
        0        // eod
 };
@@ -85,7 +85,6 @@ Q_CONSTINIT const QMetaObject customer_main::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<customer_main, std::true_type>,
         // method 'sendID'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         // method 'setId'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QString, std::false_type>
@@ -99,14 +98,14 @@ void customer_main::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         auto *_t = static_cast<customer_main *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->sendID((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 0: _t->sendID(); break;
         case 1: _t->setId((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (customer_main::*)(QString );
+            using _t = void (customer_main::*)();
             if (_t _q_method = &customer_main::sendID; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 0;
                 return;
@@ -146,9 +145,8 @@ int customer_main::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void customer_main::sendID(QString _t1)
+void customer_main::sendID()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP

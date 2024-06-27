@@ -19,7 +19,7 @@ private:
     QSqlQuery query;
 public:
     server();
-    bool exits(QString id, QString type);//判断账号是否存在
+    bool exists(QString id, QString type);//判断账号是否存在
     bool match(QString id, QString password, QString type);//判断账号和密码是否对应；
 
 
@@ -57,6 +57,8 @@ public:
     QString getPicture_restaurant(QString column, T value);//返回图片的文件路径
     template<class T>
     double getProfits_restaurant(QString column, T value);
+    template<class T>
+    int getPeopleNumber_restaurant(QString column, T value);
 
     //修改餐馆的信息
     template<class T>
@@ -107,7 +109,7 @@ public:
     void editPicture_dish(QString column,T value, QString new_file_path);
 
     //添加一个订单,订单产生时没有骑手的名字，需要在骑手接单后调用后面的函数修改订单信息添加骑手名字
-    void addOrder(QString start_location, QString restaurant_name, QString Destination, QString customer_name, bool is_taken = false, bool is_finished = false);
+    void addOrder(QString start_location, QString restaurant_name, QString Destination, QString customer_name, bool is_taken = false, bool is_finished = false, QString delivery_man_name="Nobody");
     //删除一个订单
     template<class T>
     void deleteOrder(QString column, T value);
@@ -126,7 +128,7 @@ public:
     template<class T>
     QString getRestaurantName_order(QString column, T value);
     template<class T>
-    QString getDeliveryName_order(QString column, T value);
+    QString getDeliveryManName_order(QString column, T value);
 
     //修改订单信息
     template<class T>

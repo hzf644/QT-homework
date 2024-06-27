@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="login">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>160</y>
+      <x>60</x>
+      <y>220</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="signup">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>160</y>
+      <x>210</x>
+      <y>220</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -44,33 +44,33 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>70</y>
+      <y>30</y>
       <width>31</width>
       <height>19</height>
      </rect>
     </property>
     <property name="text">
-     <string>账号</string>
+     <string>账号：</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>110</y>
+      <y>70</y>
       <width>31</width>
       <height>19</height>
      </rect>
     </property>
     <property name="text">
-     <string>密码</string>
+     <string>密码：</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="username">
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>70</y>
+      <y>30</y>
       <width>113</width>
       <height>25</height>
      </rect>
@@ -80,10 +80,62 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>110</y>
+      <y>70</y>
       <width>113</width>
       <height>25</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>120</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>顾客</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>150</y>
+      <width>73</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>商家</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_3">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>180</y>
+      <width>73</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>骑手</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>120</y>
+      <width>40</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>您是：</string>
     </property>
    </widget>
   </widget>

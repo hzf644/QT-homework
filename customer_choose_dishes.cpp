@@ -3,6 +3,7 @@
 #include"server.h"
 #include "component_dish.h"
 #include"customer_rank.h"
+#include"customer_main.h"
 #include<QVBoxLayout>
 #include<QMessageBox>
 #include<vector>

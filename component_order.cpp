@@ -4,15 +4,15 @@
 #include<QVBoxLayout>
 #include<vector>
 
-component_order::component_order(QString id, QString restaurant, QString startlocation, QString destination, double profits,QWidget *parent = nullptr)
+component_order::component_order(QString id, QString restaurant, QString start_location, QString destination, double profits, QString delivery_man_name, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::component_order)
 {
     ui->setupUi(this);
     ui->order_id->setText(id);
-    ui->restaurant_loc->setText(startlocation);
+    ui->restaurant_loc->setText(start_location);
     ui->customer_loc->setText(destination);
-    restaurant_id = restaurant;
+    restaurant_name = restaurant;
     order_profits = profits;
 }
 
@@ -24,9 +24,7 @@ component_order::~component_order()
 void component_order::on_have_finished_clicked()
 {
     server* getinfo = new server();
-    double old_profits = getinfo->getProfits_restaurant("id", restaurant_id);
-    double new_profits = old_profits + order_profits;
-    getinfo->editProfits_restaurant("id", restaurant_id, new_profits);
+    getinfo->editProfits_restaurant("name", restaurant_name, order_profits);
     delete getinfo;
     close();
 }
