@@ -12,22 +12,15 @@ class component_order : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit component_order(QString id, QString restaurant, QString start_location, QString destination, double profits,QString delivery_man_name, QWidget *parent = nullptr);
+    explicit component_order(QString id, QString start_location, QString destination, bool is_taken , QWidget *parent = nullptr);
     ~component_order();
+    void change_status();
 
 signals:
-    void finished(QString id);
-
-private slots:
-    void on_have_finished_clicked();
+    void change(bool is_taken);
 
 private:
     Ui::component_order *ui;
-    QString order_id;
-    QString start_location;
-    QString destination_location;
-    QString restaurant_name;
-    double order_profits;
 };
 
 #endif // COMPONENT_ORDER_H

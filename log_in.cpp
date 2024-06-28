@@ -18,6 +18,9 @@ log_in::log_in(QWidget *parent)
     bg->addButton(ui->radioButton);
     bg->addButton(ui->radioButton_2);
     bg->addButton(ui->radioButton_3);
+
+    connect(ui->login, &QPushButton::clicked, this, &log_in::on_login_clicked);
+    connect(ui->signup, &QPushButton::clicked, this, &log_in::on_signup_clicked);
 }
 
 log_in::~log_in()
@@ -39,7 +42,7 @@ void log_in::on_login_clicked()
     for(auto p = all_customer_id.begin(); p != all_customer_id.end();p++){
             if(getinfo_c->exists(ui->username->text(), "customer")){
             if(getinfo_c->match(ui->username->text(), ui->password->text(), "customer")){
-                customer_main *ptrcustomer = new customer_main(this);
+                customer_main *ptrcustomer = new customer_main(*p, this);
                 ptrcustomer->show();
             }
             else{
@@ -52,7 +55,7 @@ void log_in::on_login_clicked()
         for(auto p = all_restaurant_id.begin(); p != all_restaurant_id.end();p++){
             if(getinfo_r->exists(ui->username->text(), "restaurant")){
                 if(getinfo_r->match(ui->username->text(), ui->password->text(), "restaurant")){
-                    restaurant_main *ptrrestaurant = new restaurant_main(this);
+                    restaurant_main *ptrrestaurant = new restaurant_main(*p, this);
                     ptrrestaurant->show();
                 }
                 else{
@@ -66,7 +69,7 @@ void log_in::on_login_clicked()
         for(auto p = all_deliveryman_id.begin(); p != all_deliveryman_id.end();p++){
             if(getinfo_d->exists(ui->username->text(), "deliveryman")){
                 if(getinfo_d->match(ui->username->text(), ui->password->text(), "deliveryman")){
-                    delivery_main *ptrdeliveryman = new delivery_main(this);
+                    delivery_main *ptrdeliveryman = new delivery_main(getinfo_d->getDeliveryManID_order("id", *p),this);
                     ptrdeliveryman->show();
                 }
                 else{

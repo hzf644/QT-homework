@@ -12,7 +12,7 @@ class restaurant_edit_dish : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit restaurant_edit_dish(QWidget *parent = nullptr);
+    explicit restaurant_edit_dish(QString dishID, QWidget *parent = nullptr);
     ~restaurant_edit_dish();
 
 private:

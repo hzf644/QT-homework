@@ -1,7 +1,7 @@
 #include "restaurant_edit_dish.h"
 #include "ui_restaurant_edit_dish.h"
 
-restaurant_edit_dish::restaurant_edit_dish(QWidget *parent)
+restaurant_edit_dish::restaurant_edit_dish(QString dishID, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::restaurant_edit_dish)
 {

@@ -87,7 +87,7 @@ public:
     void editLocation_customer(QString column, T value, QString new_location);
 
     //添加菜品
-    void addDish(QString restaurant_name, QString name, QString picture_file_path, double price);
+    void addDish(QString restaurant_id, QString name, QString picture_file_path, double price);
     //删除菜品
     template<class T>
     void deleteDish(QString column, T value);
@@ -109,7 +109,7 @@ public:
     void editPicture_dish(QString column,T value, QString new_file_path);
 
     //添加一个订单,订单产生时没有骑手的名字，需要在骑手接单后调用后面的函数修改订单信息添加骑手名字
-    void addOrder(QString start_location, QString restaurant_name, QString Destination, QString customer_name, bool is_taken = false, bool is_finished = false, QString delivery_man_name="Nobody");
+    void addOrder(QString start_location, QString restaurant_id, QString Destination, bool is_taken = false, bool is_finished = false, QString delivery_man_name="Nobody");
     //删除一个订单
     template<class T>
     void deleteOrder(QString column, T value);
@@ -124,11 +124,9 @@ public:
     template<class T>
     QString getDestination(QString column, T value);
     template<class T>
-    QString getCustomerName_order(QString column, T value);
+    QString getRestaurantID_order(QString column, T value);
     template<class T>
-    QString getRestaurantName_order(QString column, T value);
-    template<class T>
-    QString getDeliveryManName_order(QString column, T value);
+    QString getDeliveryManID_order(QString column, T value);
 
     //修改订单信息
     template<class T>

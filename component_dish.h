@@ -17,8 +17,7 @@ public:
     ~component_dish();
 
 signals:
-    void ordered(double price);//顾客点击选中一个菜时，发送此信号
-    //把该菜的价格传给槽函数，槽函数将菜的价格加到点餐页面显示的总价格上
+    void ordered();//顾客点击选中一个菜时，发送此信号
 
 private:
     Ui::component_dish *ui;

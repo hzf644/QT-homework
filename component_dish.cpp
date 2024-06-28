@@ -6,6 +6,12 @@ component_dish::component_dish(QString name, QString pciture_file_path, double p
     , ui(new Ui::component_dish)
 {
     ui->setupUi(this);
+    ui->name->setText(name);
+    ui->pricture->setPixmap(QPixmap(pciture_file_path));
+    ui->price->display(price);
+    connect(ui->pushButton, &QPushButton::clicked, [&](){
+        emit this->ordered();
+    });
 }
 
 component_dish::~component_dish()

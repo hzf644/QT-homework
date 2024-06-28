@@ -19,6 +19,7 @@ customer_rank::customer_rank(QString restaurant_name, QWidget *parent)
         double new_rank = ui->lineEdit->text().toDouble();
         editinfo->editRank_restaurant("name", restaurant_name, new_rank);
     });
+    delete editinfo;
 }
 
 customer_rank::~customer_rank()

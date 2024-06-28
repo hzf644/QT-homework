@@ -37,8 +37,7 @@ struct qt_meta_stringdata_CLASScomponent_dishENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASScomponent_dishENDCLASS = QtMocHelpers::stringData(
     "component_dish",
     "ordered",
-    "",
-    "price"
+    ""
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -59,10 +58,10 @@ Q_CONSTINIT static const uint qt_meta_data_CLASScomponent_dishENDCLASS[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   20,    2, 0x06,    1 /* Public */,
+       1,    0,   20,    2, 0x06,    1 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -77,8 +76,7 @@ Q_CONSTINIT const QMetaObject component_dish::staticMetaObject = { {
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<component_dish, std::true_type>,
         // method 'ordered'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<double, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -89,19 +87,20 @@ void component_dish::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<component_dish *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->ordered((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 0: _t->ordered(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (component_dish::*)(double );
+            using _t = void (component_dish::*)();
             if (_t _q_method = &component_dish::ordered; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 0;
                 return;
             }
         }
     }
+    (void)_a;
 }
 
 const QMetaObject *component_dish::metaObject() const
@@ -135,9 +134,8 @@ int component_dish::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void component_dish::ordered(double _t1)
+void component_dish::ordered()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP

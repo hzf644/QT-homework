@@ -70,7 +70,7 @@ public:
         location->setGeometry(QRect(170, 200, 113, 25));
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName("label_3");
-        label_3->setGeometry(QRect(50, 120, 121, 19));
+        label_3->setGeometry(QRect(90, 120, 121, 19));
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName("label_4");
         label_4->setGeometry(QRect(90, 200, 31, 19));
@@ -116,7 +116,7 @@ public:
         sign_up->setCentralWidget(centralwidget);
         menubar = new QMenuBar(sign_up);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 507, 25));
+        menubar->setGeometry(QRect(0, 0, 507, 17));
         sign_up->setMenuBar(menubar);
         statusbar = new QStatusBar(sign_up);
         statusbar->setObjectName("statusbar");
@@ -132,7 +132,7 @@ public:
         sign_up->setWindowTitle(QCoreApplication::translate("sign_up", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("sign_up", "\350\264\246\345\217\267", nullptr));
         label_2->setText(QCoreApplication::translate("sign_up", "\345\257\206\347\240\201", nullptr));
-        label_3->setText(QCoreApplication::translate("sign_up", "\345\247\223\345\220\215(\346\210\226\345\272\227\351\223\272\345\220\215\347\247\260)", nullptr));
+        label_3->setText(QCoreApplication::translate("sign_up", "\346\230\265\347\247\260\346\210\226\345\272\227\351\223\272\345\220\215\347\247\260", nullptr));
         label_4->setText(QCoreApplication::translate("sign_up", "\345\234\260\345\235\200", nullptr));
         label_5->setText(QCoreApplication::translate("sign_up", "\345\233\276\347\211\207\347\232\204\346\226\207\344\273\266\350\267\257\345\276\204", nullptr));
         label_7->setText(QCoreApplication::translate("sign_up", "\357\274\210\351\252\221\346\211\213\344\270\215\351\241\273\345\241\253\345\206\231\357\274\211", nullptr));

@@ -20,13 +20,13 @@ sign_up::~sign_up()
 void sign_up::on_confirm_clicked()
 {
     bool existed = 0;
-    if((ui->id->text()!=NULL)&&(ui->password->text()!=NULL)&&(ui->name->text()!=NULL)){
+    if((!ui->id->text().isEmpty())&&(!ui->password->text().isEmpty())&&(!ui->name->text().isEmpty())){
         if(ui->i_customer->isChecked()){
-            if(ui->location->text()!=NULL){
+            if(!ui->location->text().isEmpty()){
                 server* getinfo = new server();
                 vector<QString> all_customer_id = getinfo->getAll("customer");
                 for(auto p = all_customer_id.begin(); p != all_customer_id.end();p++){
-                    if(getinfo->exits(ui->id->text(), "customer")){
+                    if(getinfo->exists(ui->id->text(), "customer")){
                         QMessageBox::warning(this,"注册失败","该账号已存在！",QMessageBox::Ok);
                         existed = 1;
                         break;
@@ -44,11 +44,11 @@ void sign_up::on_confirm_clicked()
             }
         }
         else if(ui->i_restaurant->isChecked()){
-            if((ui->location->text()!=NULL)&&(ui->picture->text()!=NULL)){
+            if((!ui->location->text().isEmpty())&&(!ui->picture->text().isEmpty())){
                 server* getinfo = new server();
                 vector<QString> all_restaurant_id = getinfo->getAll("restaurant");
                 for(auto p = all_restaurant_id.begin(); p != all_restaurant_id.end();p++){
-                    if(getinfo->exits(ui->id->text(), "restaurant")){
+                    if(getinfo->exists(ui->id->text(), "restaurant")){
                         QMessageBox::warning(this,"注册失败","该账号已存在！",QMessageBox::Ok);
                         existed = 1;
                         break;
@@ -61,7 +61,7 @@ void sign_up::on_confirm_clicked()
                 }
                 delete getinfo;
             }
-            else if(ui->location->text()==NULL){
+            else if(!ui->location->text().isEmpty()){
                 QMessageBox::warning(this,"注册失败","请输入地址！",QMessageBox::Ok);
             }
             else{
@@ -72,7 +72,7 @@ void sign_up::on_confirm_clicked()
             server* getinfo = new server();
             vector<QString> all_deliveryman_id = getinfo->getAll("deliveryman");
             for(auto p = all_deliveryman_id.begin(); p != all_deliveryman_id.end();p++){
-                if(getinfo->exits(ui->id->text(), "deliveryman")){
+                if(getinfo->exists(ui->id->text(), "deliveryman")){
                     QMessageBox::warning(this,"注册失败","该账号已存在！",QMessageBox::Ok);
                     existed = 1;
                     break;
@@ -86,10 +86,10 @@ void sign_up::on_confirm_clicked()
             delete getinfo;
         }
     }
-    else if(ui->id->text()==NULL){
+    else if(!ui->id->text().isEmpty()){
         QMessageBox::warning(this,"注册失败","请输入账号！",QMessageBox::Ok);
     }
-    else if(ui->password->text()==NULL){
+    else if(!ui->password->text().isEmpty()){
         QMessageBox::warning(this,"注册失败","请输入密码！",QMessageBox::Ok);
     }
     else{

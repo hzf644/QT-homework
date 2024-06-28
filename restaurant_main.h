@@ -12,7 +12,7 @@ class restaurant_main : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit restaurant_main(QWidget *parent = nullptr);
+    explicit restaurant_main(QString userID, QWidget *parent = nullptr);
     ~restaurant_main();
 
 private:

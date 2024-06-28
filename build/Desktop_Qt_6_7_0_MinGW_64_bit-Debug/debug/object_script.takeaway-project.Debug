@@ -1,4 +1,5 @@
 debug/component_dish.o
+debug/component_dish_for_restaurant.o
 debug/component_order.o
 debug/component_restaurant_information.o
 debug/customer_choose_dishes.o
@@ -7,14 +8,13 @@ debug/customer_rank.o
 debug/delivery_main.o
 debug/main.o
 debug/log_in.o
-debug/restaurant_deal_with_orders.o
-debug/restaurant_distribute_orders.o
 debug/restaurant_edit_dish.o
 debug/restaurant_main.o
 debug/restaurant_view_profits.o
 debug/server.o
 debug/sign_up.o
 debug/moc_component_dish.o
+debug/moc_component_dish_for_restaurant.o
 debug/moc_component_order.o
 debug/moc_component_restaurant_information.o
 debug/moc_customer_choose_dishes.o
@@ -22,8 +22,6 @@ debug/moc_customer_main.o
 debug/moc_customer_rank.o
 debug/moc_delivery_main.o
 debug/moc_log_in.o
-debug/moc_restaurant_deal_with_orders.o
-debug/moc_restaurant_distribute_orders.o
 debug/moc_restaurant_edit_dish.o
 debug/moc_restaurant_main.o
 debug/moc_restaurant_view_profits.o

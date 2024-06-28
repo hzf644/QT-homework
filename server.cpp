@@ -362,7 +362,7 @@ void server::editLocation_customer(QString column, T value, QString new_location
 
 
 
-void server::addDish(QString restaurant_name, QString name, QString picture_file_path, double price)
+void server::addDish(QString restaurant_id, QString name, QString picture_file_path, double price)
 {
     QString cmd = "insert into dish values(?, ?, ?, ?, ?)";
     query.prepare(cmd);
@@ -370,7 +370,7 @@ void server::addDish(QString restaurant_name, QString name, QString picture_file
     QString id = datetime.toString("yyyyMMddhhmmss");
     query.addBindValue(id);
     query.addBindValue(name);
-    query.addBindValue(restaurant_name);
+    query.addBindValue(restaurant_id);
     query.addBindValue(picture_file_path);
     query.addBindValue(price);
     if(!query.exec()){
@@ -482,20 +482,19 @@ void server::editPicture_dish(QString column, T value, QString new_file_path)
 
 
 
-void server::addOrder(QString start_location, QString restaurant_name, QString Destination, QString customer_name, bool is_taken, bool is_finished, QString delivery_man_name)
+void server::addOrder(QString start_location, QString restaurant_id, QString Destination, bool is_taken, bool is_finished, QString delivery_man_name)
 {
-    QString cmd = "insert into orderr values(?, ?, ?, ?, ?, ?, ?, ?)";
+    QString cmd = "insert into orderr values(?, ?, ?, ?, ?, ?, ?)";
     query.prepare(cmd);
     QDateTime datetime = QDateTime::currentDateTime();
     QString id = datetime.toString("yyyyMMddhhmmss");
-    query.addBindValue(delivery_man_name);
     query.addBindValue(id);
     query.addBindValue(start_location);
-    query.addBindValue(restaurant_name);
+    query.addBindValue(restaurant_id);
     query.addBindValue(Destination);
-    query.addBindValue(customer_name);
     query.addBindValue(is_taken);
     query.addBindValue(is_finished);
+    query.addBindValue(delivery_man_name);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
@@ -582,10 +581,10 @@ QString server::getDestination(QString column, T value)
 }
 
 template<class T>
-QString server::getCustomerName_order(QString column, T value)
+QString server::getRestaurantID_order(QString column, T value)
 {
     QString ret;
-    QString cmd = "select customer_name from orderr where :colum = :value";
+    QString cmd = "select restaurant_id from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);
@@ -599,27 +598,10 @@ QString server::getCustomerName_order(QString column, T value)
 }
 
 template<class T>
-QString server::getRestaurantName_order(QString column, T value)
+QString server::getDeliveryManID_order(QString column, T value)
 {
     QString ret;
-    QString cmd = "select restaurant_name from orderr where :colum = :value";
-    query.prepare(cmd);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
-    else{
-        ret = query.value(0).toString();
-    }
-    return ret;
-}
-
-template<class T>
-QString server::getDeliveryManName_order(QString column, T value)
-{
-    QString ret;
-    QString cmd = "select delivery_man_name from orderr where :colum = :value";
+    QString cmd = "select delivery_man_id from orderr where :colum = :value";
     query.prepare(cmd);
     query.bindValue(":column", column);
     query.bindValue(":value", value);

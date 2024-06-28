@@ -7,15 +7,16 @@
 #include<vector>
 
 
-customer_main::customer_main(QWidget *parent)
+customer_main::customer_main(QString userID, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::customer_main)
 {
     ui->setupUi(this);
     this->setFixedSize(450, 900);
+    this->setAttribute(Qt::WA_DeleteOnClose);
     ui->centralwidget->setFixedSize(450, 900);
-    ui->scrollArea->setFixedSize(450, 800);
-    ui->scrollAreaWidgetContents->setFixedSize(400, 800);
+    ui->scrollArea->setFixedSize(450, 900);
+    ui->scrollAreaWidgetContents->setFixedSize(400, 900);
 
 
     QVBoxLayout* layout = new QVBoxLayout(ui->scrollAreaWidgetContents);
@@ -29,14 +30,15 @@ customer_main::customer_main(QWidget *parent)
         double rank = getinfo->getRank_restaurant("id", id);
         QString picture_file_path = getinfo->getPicture_restaurant("id", id);
         component_restaurant_information* restaurant_information = new component_restaurant_information(name, location, picture_file_path, rank);
-        connect(restaurant_information, &component_restaurant_information::enter, [&](QString name){
-            customer_choose_dishes* choose = new customer_choose_dishes(userID, name, this);
+        restaurant_information->setAttribute(Qt::WA_DeleteOnClose);
+        restaurant_information->setFixedSize(400, 300);
+        connect(restaurant_information, &component_restaurant_information::enter, [&](){
+            customer_choose_dishes* choose = new customer_choose_dishes(userID, id, this);
             this->hide();
-            connect(this, &customer_main::sendID, choose, [&](){
-                choose->UserID = userID;
+            connect(choose,&customer_choose_dishes::subClose,this, [&](){
+                this->repaint();
+                this->show();
             });
-            emit sendID();
-            connect(choose,&customer_choose_dishes::subClose,this, &QMainWindow::show);
             choose->setAttribute(Qt::WA_DeleteOnClose);
             choose->show();
         });
@@ -53,7 +55,3 @@ customer_main::~customer_main()
     delete ui;
 }
 
-void customer_main::setId(QString id)
-{
-    this->userID = id;
-}

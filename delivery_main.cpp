@@ -5,15 +5,16 @@
 #include<QVBoxLayout>
 #include<vector>
 
-delivery_main::delivery_main(QWidget *parent)
+delivery_main::delivery_main(QString deliveryid, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::delivery_main)
 {
     ui->setupUi(this);
     this->setFixedSize(450, 900);
+    this->setAttribute(Qt::WA_DeleteOnClose);
     ui->centralwidget->setFixedSize(450, 900);
-    ui->scrollArea->setFixedSize(450, 800);
-    ui->scrollAreaWidgetContents->setFixedSize(400, 800);
+    ui->scrollArea->setFixedSize(450, 900);
+    ui->scrollAreaWidgetContents->setFixedSize(400, 900);
     QVBoxLayout* layout = new QVBoxLayout(ui->scrollAreaWidgetContents);
     server* getinfo = new server();
     vector<QString> all_order_id = getinfo->getAll("order");
@@ -21,11 +22,22 @@ delivery_main::delivery_main(QWidget *parent)
         QString id = *p;
         QString startlocation = getinfo->getStartLocation("id", id);
         QString destination = getinfo->getDestination("id", id);
-        QString restaurant_name = getinfo->getRestaurantName_order("id", id);
-        QString customer_name = getinfo->getCustomerName_order("id", id);
-        QString delivery_man_name = getinfo->getDeliveryManName_order("id", id);
-        component_order* order_information = new component_order(id,restaurant_name, startlocation, destination);
-        layout->addWidget(order_information);
+        QString delivery_man_id = getinfo->getDeliveryManID_order("id", id);
+        bool is = getinfo->is_taken("id", id);
+        bool is_finished = getinfo->is_finished("id", id);
+        component_order* order_information = new component_order(id,startlocation, destination, is);
+        order_information->setAttribute(Qt::WA_DeleteOnClose);
+
+        connect(order_information, &component_order::change, [&](bool is_take){
+            if(is_take){
+                this->repaint();
+            }
+            else{
+                order_information->change_status();
+                this->repaint();
+            }
+        });
+        if((delivery_man_id==""||delivery_man_id==deliveryid)&&!is_finished)layout->addWidget(order_information);
     }
     ui->scrollAreaWidgetContents->setLayout(layout);
     delete getinfo;

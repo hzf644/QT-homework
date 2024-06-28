@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     component_dish.cpp \
+    component_dish_for_restaurant.cpp \
     component_order.cpp \
     component_restaurant_information.cpp \
     customer_choose_dishes.cpp \
@@ -19,8 +20,6 @@ SOURCES += \
     delivery_main.cpp \
     main.cpp \
     log_in.cpp \
-    restaurant_deal_with_orders.cpp \
-    restaurant_distribute_orders.cpp \
     restaurant_edit_dish.cpp \
     restaurant_main.cpp \
     restaurant_view_profits.cpp \
@@ -29,6 +28,7 @@ SOURCES += \
 
 HEADERS += \
     component_dish.h \
+    component_dish_for_restaurant.h \
     component_order.h \
     component_restaurant_information.h \
     customer_choose_dishes.h \
@@ -36,8 +36,6 @@ HEADERS += \
     customer_rank.h \
     delivery_main.h \
     log_in.h \
-    restaurant_deal_with_orders.h \
-    restaurant_distribute_orders.h \
     restaurant_edit_dish.h \
     restaurant_main.h \
     restaurant_view_profits.h \
@@ -46,6 +44,7 @@ HEADERS += \
 
 FORMS += \
     component_dish.ui \
+    component_dish_for_restaurant.ui \
     component_order.ui \
     component_restaurant_information.ui \
     customer_choose_dishes.ui \
@@ -53,8 +52,6 @@ FORMS += \
     customer_rank.ui \
     delivery_main.ui \
     log_in.ui \
-    restaurant_deal_with_orders.ui \
-    restaurant_distribute_orders.ui \
     restaurant_edit_dish.ui \
     restaurant_main.ui \
     restaurant_view_profits.ui \

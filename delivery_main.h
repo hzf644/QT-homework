@@ -12,7 +12,7 @@ class delivery_main : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit delivery_main(QWidget *parent = nullptr);
+    explicit delivery_main(QString name, QWidget *parent = nullptr);
     ~delivery_main();
 
 private:
