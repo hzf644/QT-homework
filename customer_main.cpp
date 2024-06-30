@@ -7,16 +7,17 @@
 #include<vector>
 
 
-customer_main::customer_main(QString userID, QWidget *parent)
+customer_main::customer_main(QString qwer, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::customer_main)
 {
+    userID = qwer;
     ui->setupUi(this);
     this->setFixedSize(450, 900);
     this->setAttribute(Qt::WA_DeleteOnClose);
     ui->centralwidget->setFixedSize(450, 900);
     ui->scrollArea->setFixedSize(450, 900);
-    ui->scrollAreaWidgetContents->setFixedSize(400, 900);
+    ui->scrollAreaWidgetContents->setFixedSize(448, 900);
 
 
     QVBoxLayout* layout = new QVBoxLayout(ui->scrollAreaWidgetContents);
@@ -31,12 +32,13 @@ customer_main::customer_main(QString userID, QWidget *parent)
         QString picture_file_path = getinfo->getPicture_restaurant("id", id);
         component_restaurant_information* restaurant_information = new component_restaurant_information(name, location, picture_file_path, rank);
         restaurant_information->setAttribute(Qt::WA_DeleteOnClose);
-        restaurant_information->setFixedSize(400, 300);
-        connect(restaurant_information, &component_restaurant_information::enter, [&](){
-            customer_choose_dishes* choose = new customer_choose_dishes(userID, id, this);
+        restaurant_information->setFixedSize(448, 300);
+        connect(restaurant_information, &component_restaurant_information::enter, [=](){
+            qDebug()<<"man";
+            customer_choose_dishes* choose = new customer_choose_dishes(userID, id);
             this->hide();
             connect(choose,&customer_choose_dishes::subClose,this, [&](){
-                this->repaint();
+                this->update();
                 this->show();
             });
             choose->setAttribute(Qt::WA_DeleteOnClose);
@@ -53,5 +55,10 @@ customer_main::customer_main(QString userID, QWidget *parent)
 customer_main::~customer_main()
 {
     delete ui;
+}
+
+void customer_main::closeEvent(QCloseEvent *)
+{
+    emit subClose();
 }
 

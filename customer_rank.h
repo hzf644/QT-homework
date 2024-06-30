@@ -20,6 +20,7 @@ signals:
 
 private:
     void closeEvent(QCloseEvent*);
+    QString restaurant_name;
     Ui::customer_rank *ui;
 };
 

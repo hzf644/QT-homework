@@ -5,10 +5,11 @@
 #include<QVBoxLayout>
 #include<vector>
 
-delivery_main::delivery_main(QString deliveryid, QWidget *parent)
+delivery_main::delivery_main(QString qwer, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::delivery_main)
 {
+    deliveryid = qwer;
     ui->setupUi(this);
     this->setFixedSize(450, 900);
     this->setAttribute(Qt::WA_DeleteOnClose);
@@ -17,7 +18,7 @@ delivery_main::delivery_main(QString deliveryid, QWidget *parent)
     ui->scrollAreaWidgetContents->setFixedSize(400, 900);
     QVBoxLayout* layout = new QVBoxLayout(ui->scrollAreaWidgetContents);
     server* getinfo = new server();
-    vector<QString> all_order_id = getinfo->getAll("order");
+    vector<QString> all_order_id = getinfo->getAll("orderr");
     for(auto p = all_order_id.begin(); p != all_order_id.end();p++){
         QString id = *p;
         QString startlocation = getinfo->getStartLocation("id", id);
@@ -25,17 +26,12 @@ delivery_main::delivery_main(QString deliveryid, QWidget *parent)
         QString delivery_man_id = getinfo->getDeliveryManID_order("id", id);
         bool is = getinfo->is_taken("id", id);
         bool is_finished = getinfo->is_finished("id", id);
-        component_order* order_information = new component_order(id,startlocation, destination, is);
+        component_order* order_information = new component_order(id,startlocation, destination, is, delivery_man_id);
         order_information->setAttribute(Qt::WA_DeleteOnClose);
 
-        connect(order_information, &component_order::change, [&](bool is_take){
-            if(is_take){
-                this->repaint();
-            }
-            else{
-                order_information->change_status();
-                this->repaint();
-            }
+        connect(order_information, &component_order::change, [=](bool is_take){
+            order_information->change_status(is_take);
+            this->repaint();
         });
         if((delivery_man_id==""||delivery_man_id==deliveryid)&&!is_finished)layout->addWidget(order_information);
     }
@@ -46,4 +42,9 @@ delivery_main::delivery_main(QString deliveryid, QWidget *parent)
 delivery_main::~delivery_main()
 {
     delete ui;
+}
+
+void delivery_main::closeEvent(QCloseEvent *)
+{
+    emit subClose();
 }

@@ -15,8 +15,12 @@ public:
     explicit delivery_main(QString name, QWidget *parent = nullptr);
     ~delivery_main();
 
+signals:
+    void subClose();
 private:
+    QString deliveryid;
     Ui::delivery_main *ui;
+    void closeEvent(QCloseEvent *);
 };
 
 #endif // DELIVERY_MAIN_H

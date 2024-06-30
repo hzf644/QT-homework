@@ -2,7 +2,13 @@
 #define CUSTOMER_CHOOSE_DISHES_H
 
 #include <QMainWindow>
-
+#include "server.h"
+#include "component_dish.h"
+#include"customer_rank.h"
+#include"customer_main.h"
+#include<QVBoxLayout>
+#include<QMessageBox>
+#include<vector>
 namespace Ui {
 class customer_choose_dishes;
 }
@@ -22,6 +28,7 @@ signals:
 
 private:
     double amount = 0;
+    QString userID, restaurant_id;
     void closeEvent(QCloseEvent* );
     Ui::customer_choose_dishes *ui;
 };

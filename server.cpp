@@ -2,34 +2,50 @@
 
 server::server()
 {
+}
+
+bool server::exists(QString id, QString type)
+{
+    QSqlDatabase database;
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("waimai.db");
     if(!database.open()){
         qDebug()<<"open error! "<<database.lastError();
     }
-}
-
-bool server::exists(QString id, QString type)
-{
+    QSqlQuery query;
     bool ret = false;
-    QString cmd = "select exists(select 1 from " + type + " where id = " + id;
-    if(!query.exec(cmd)){
+    QString cmd = "select exists(select 1 from "+type+" where id = :id)";
+    query.prepare(cmd);
+    query.bindValue(":id", id);
+    if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
-        ret = query.value(0).toBool();
+        query.next();
+        ret = query.value(0).toInt();
     }
     return ret;
 }
 
 bool server::match(QString id, QString password, QString type)
 {
+    QSqlDatabase database;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     bool ret = false;
-    QString cmd = "select password from " + type + " where id = " + id;
+    QString cmd = "select password from "+type+" where id == \'"+id+"\'";
+    query.prepare(cmd);
+    //query.bindValue(":id", id);
     if(!query.exec(cmd)){
         qDebug()<<"exec error: "<<cmd;
+        qDebug()<<query.lastError();
     }
     else{
+        query.next();
         QString real_password = query.value(0).toString();
         ret = (password == real_password);
     }
@@ -38,6 +54,13 @@ bool server::match(QString id, QString password, QString type)
 
 vector<QString> server::getAll(QString type)
 {
+    QSqlDatabase database;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     vector<QString> ret;
     QString cmd = "select id from " + type;
     if(!query.exec(cmd)){
@@ -52,16 +75,21 @@ vector<QString> server::getAll(QString type)
     return ret;
 }
 
-template<class T>
-vector<QString> server::getPart(QString column, T value, QString type)
+
+vector<QString> server::getPart(QString column, QString value, QString type)
 {
+    QSqlDatabase database;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     vector<QString> ret;
-    QString cmd = "select id from :type where :column = :value";
+    QString cmd = "select id from "+type+" where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":type", type);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
-    if(!query.exec(cmd)){
+    if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
@@ -77,6 +105,13 @@ vector<QString> server::getPart(QString column, T value, QString type)
 
 void server::addRestaurant(QString id, QString password, QString name, QString location, QString picture_file_path, double rank, double profits, int people)
 {
+    QSqlDatabase database;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString cmd = "insert into restaurant values(?, ?, ?, ?, ?, ?, ?, ?)";
     query.prepare(cmd);
     query.addBindValue(id);
@@ -92,193 +127,221 @@ void server::addRestaurant(QString id, QString password, QString name, QString l
     }
 }
 
-template<class T>
-QString server::getName_restaurant(QString column, T value)
+
+QString server::getName_restaurant(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select name from restaurant where :column = :value";
+    QString cmd = "select name from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-QString server::getLocation_restaurant(QString column, T value)
+
+QString server::getLocation_restaurant(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select location from restaurant where :column = :value";
+    QString cmd = "select location from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-double server::getRank_restaurant(QString column, T value)
+
+double server::getRank_restaurant(QString column, QString value)
 {
-    double ret;
-    QString cmd = "select rank from restaurant where :column = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    double ret=0.0;
+    QString cmd = "select rank from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toDouble();
     }
     return ret;
 }
 
-template<class T>
-int server::getPeopleNumber_restaurant(QString column, T value)
+
+int server::getPeopleNumber_restaurant(QString column, QString value)
 {
-    int ret;
-    QString cmd = "select people from restaurant where :column = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    int ret=0;
+    QString cmd = "select people from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toInt();
     }
     return ret;
 }
 
-template<class T>
-QString server::getPicture_restaurant(QString column, T value)
+
+QString server::getPicture_restaurant(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select picture_file_path from restaurant where :column = :value";
+    QString cmd = "select picture_file_path from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-double server::getProfits_restaurant(QString column, T value)
+
+double server::getProfits_restaurant(QString column, QString value)
 {
-    double ret;
-    QString cmd = "select profits from restaurant where :column = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    double ret=0.0;
+    QString cmd = "select profit from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toDouble();
     }
     return ret;
 }
 
-template<class T>
-void server::editName_restaurant(QString column, T value, QString new_name)
-{
-    QString cmd = "update restaurant set name = :name where :column = :value";
-    query.prepare(cmd);
-    query.bindValue(":name", new_name);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
-}
 
-template<class T>
-void server::editLocation_restaurant(QString column, T value, QString new_location)
+void server::editRank_restaurant(QString column, QString value, double new_rank)
 {
-    QString cmd = "update restaurant set location = :name where :column = :value";
-    query.prepare(cmd);
-    query.bindValue(":name", new_location);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
-}
+    QSqlDatabase database;
 
-template<class T>
-void server::editRank_restaurant(QString column, T value, double new_rank)
-{
-    QString c = "select rank, people from restaurant wher :column = :value";
-    double rank, people;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString c = "select rank, people from restaurant where "+column+" = "+"\'"+value+"\'";
+    double rank=0.0;int people=0;
     query.prepare(c);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<c;
     }
     else{
+        query.next();
         rank = query.value(0).toDouble();
         people = query.value(1).toInt();
     }
+
     rank = people * rank;
     people++;
-    rank = (rank + new_rank) / people;
+    rank = (rank + new_rank) / people*1.0;
 
-    QString cmd = "update restaurant set rank = :rank， set people = :people where :column = :value";
+    QString cmd = "update restaurant set rank = :rank where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
     query.bindValue(":name", rank);
+    if(!query.exec()){
+        qDebug()<<"exec error: "<<cmd;
+    }
+    cmd = "update restaurant set people = :people where "+column+" = "+"\'"+value+"\'";
     query.bindValue(":people", people);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
 }
 
-template<class T>
-void server::editProfits_restaurant(QString column, T value, double new_profits)
+
+void server::editProfits_restaurant(QString column, QString value, double new_profits)
 {
-    QString c = "select profits from restaurant where :column = :value";
+    QSqlDatabase database;
+    double profits;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString c = "select profit from restaurant where "+column+" = "+"\'"+value+"\'";
     query.prepare(c);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<c;
     }
-    new_profits += query.value(0).toDouble();
-
-    QString cmd = "update restaurant set profits = :name where :column = :value";
+    else{
+        query.next();
+        profits = query.value(0).toDouble();
+    }
+    new_profits += profits;
+    QString cmd = "update restaurant set profit = :name where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
     query.bindValue(":name", new_profits);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
-}
-
-template<class T>
-void server::editPicture_restaurant(QString column, T value, QString new_file_path)
-{
-    QString cmd = "update restaurant set picture_path_file = :name where :column = :value";
-    query.prepare(cmd);
-    query.bindValue(":name", new_file_path);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
@@ -289,6 +352,14 @@ void server::editPicture_restaurant(QString column, T value, QString new_file_pa
 
 void server::addCustomer(QString id, QString password, QString name, QString location)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString cmd = "insert into customer values(?, ?, ?, ?)";
     query.prepare(cmd);
     query.addBindValue(id);
@@ -300,70 +371,67 @@ void server::addCustomer(QString id, QString password, QString name, QString loc
     }
 }
 
-template<class T>
-QString server::getName_customer(QString column, T value)
+
+QString server::getName_customer(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select name from customer where :colum = :value";
+    QString cmd = "select name from customer where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-QString server::getLocation_customer(QString column, T value)
+
+QString server::getLocation_customer(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select name from customer where :colum = :value";
+    QString cmd = "select name from customer where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
-}
-
-template<class T>
-void server::editName_customer(QString column, T value, QString new_name)
-{
-    QString cmd = "update customer set name = :name where :column = :value";
-    query.prepare(cmd);
-    query.bindValue(":name", new_name);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
-}
-
-template<class T>
-void server::editLocation_customer(QString column, T value, QString new_location)
-{
-    QString cmd = "update customer set location = :name where :column = :value";
-    query.prepare(cmd);
-    query.bindValue(":name", new_location);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
 }
 
 
 
 void server::addDish(QString restaurant_id, QString name, QString picture_file_path, double price)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString cmd = "insert into dish values(?, ?, ?, ?, ?)";
     query.prepare(cmd);
     QDateTime datetime = QDateTime::currentDateTime();
@@ -378,75 +446,113 @@ void server::addDish(QString restaurant_id, QString name, QString picture_file_p
     }
 }
 
-template<class T>
-void server::deleteDish(QString column, T value)
+
+void server::deleteDish(QString column, QString value)
 {
-    QString cmd = "delete from dish where :column = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "delete from dish where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
 }
 
-template<class T>
-double server::getPrice_dish(QString column, T value)
+
+double server::getPrice_dish(QString column, QString value)
 {
-    double ret;
-    QString cmd = "select price from dish where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    double ret=0.0;
+    QString cmd = "select price from dish where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toDouble();
     }
     return ret;
 }
 
-template<class T>
-QString server::getName_dish(QString column, T value)
+
+QString server::getName_dish(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select name from dish where :colum = :value";
+    QString cmd = "select name from dish where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-QString server::getPicture_dish(QString column, T value)
+
+QString server::getPicture_dish(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select picture_file_path from dish where :colum = :value";
+    QString cmd = "select picture_file_path from dish where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-void server::editPrice_dish(QString column, T value, double new_price)
+
+void server::editPrice_dish(QString column, QString value, double new_price)
 {
-    QString cmd = "update from dish set price = :price where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "update dish set price = :price where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     query.bindValue(":price", new_price);
     if(!query.exec()){
@@ -454,12 +560,19 @@ void server::editPrice_dish(QString column, T value, double new_price)
     }
 }
 
-template<class T>
-void server::editName_dish(QString column, T value, QString new_name)
+
+void server::editName_dish(QString column, QString value, QString new_name)
 {
-    QString cmd = "update from dish set name = :name where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "update dish set name = :name where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     query.bindValue(":name", new_name);
     if(!query.exec()){
@@ -467,12 +580,19 @@ void server::editName_dish(QString column, T value, QString new_name)
     }
 }
 
-template<class T>
-void server::editPicture_dish(QString column, T value, QString new_file_path)
+
+void server::editPicture_dish(QString column, QString value, QString new_file_path)
 {
-    QString cmd = "update from dish set picture_file_path = :path where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "update dish set picture_file_path = :path where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     query.bindValue(":path", new_file_path);
     if(!query.exec()){
@@ -484,6 +604,14 @@ void server::editPicture_dish(QString column, T value, QString new_file_path)
 
 void server::addOrder(QString start_location, QString restaurant_id, QString Destination, bool is_taken, bool is_finished, QString delivery_man_name)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString cmd = "insert into orderr values(?, ?, ?, ?, ?, ?, ?)";
     query.prepare(cmd);
     QDateTime datetime = QDateTime::currentDateTime();
@@ -500,126 +628,209 @@ void server::addOrder(QString start_location, QString restaurant_id, QString Des
     }
 }
 
-template<class T>
-void server::deleteOrder(QString column, T value)
+
+void server::deleteOrder(QString column, QString value)
 {
-    QString cmd = "delete from orderr where :column = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "delete from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
 }
 
-template<class T>
-bool server::is_taken(QString column, T value)
+
+bool server::is_taken(QString column, QString value)
 {
-    bool ret;
-    QString cmd = "select is_taken from orderr where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    bool ret=0;
+    QString cmd = "select is_taken from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toBool();
     }
     return ret;
 }
 
-template<class T>
-bool server::is_finished(QString column, T value)
+
+bool server::is_finished(QString column, QString value)
 {
-    bool ret;
-    QString cmd = "select is_finished from orderr where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    bool ret=0;
+    QString cmd = "select is_finished from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toBool();
     }
     return ret;
 }
 
-template<class T>
-QString server::getStartLocation(QString column, T value)
+
+QString server::getStartLocation(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select start_location from orderr where :colum = :value";
+    QString cmd = "select start_location from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-QString server::getDestination(QString column, T value)
+
+QString server::getDestination(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select destination from orderr where :colum = :value";
+    QString cmd = "select destination from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-QString server::getRestaurantID_order(QString column, T value)
+
+QString server::getRestaurantID_order(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select restaurant_id from orderr where :colum = :value";
+    QString cmd = "select restaurant_id from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-QString server::getDeliveryManID_order(QString column, T value)
+
+QString server::getDeliveryManID_order(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select delivery_man_id from orderr where :colum = :value";
+    QString cmd = "select delivery_man_id from orderr where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
 }
 
-template<class T>
-void server::taken(QString column, T value)
+
+void server::taken(QString column, QString value)
 {
-    QString cmd = "update from orderr set is_taken = :a where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "update orderr set is_taken = 1 where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
+    query.bindValue(":value", value);
+    query.bindValue(":a", true);
+    if(!query.exec()){
+        qDebug()<<"exec error: "<<cmd;
+        qDebug()<<query.lastError();
+    }
+}
+
+
+void server::finished(QString column, QString value)
+{
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "update orderr set is_finished = 1 where "+column+" = "+"\'"+value+"\'";
+    query.prepare(cmd);
     query.bindValue(":value", value);
     query.bindValue(":a", true);
     if(!query.exec()){
@@ -627,27 +838,21 @@ void server::taken(QString column, T value)
     }
 }
 
-template<class T>
-void server::finished(QString column, T value)
-{
-    QString cmd = "update from orderr set is_finished = :a where :colum = :value";
-    query.prepare(cmd);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    query.bindValue(":a", true);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
-}
 
-template<class T>
-void server::addDeliveryName_order(QString column, T value, QString delivery_name)
+void server::addDeliveryID_order(QString column, QString value, QString delivery_id)
 {
-    QString cmd = "update from orderr set delivery_man_name = :path where :colum = :value";
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
+    QString cmd = "update orderr set delivery_man_id = :path where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
-    query.bindValue(":path", delivery_name);
+    query.bindValue(":path", delivery_id);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
@@ -657,6 +862,14 @@ void server::addDeliveryName_order(QString column, T value, QString delivery_nam
 
 void server::addDelivery(QString id, QString password, QString name)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString cmd = "insert into delivery values(?, ?, ?)";
     query.prepare(cmd);
     query.addBindValue(id);
@@ -667,32 +880,27 @@ void server::addDelivery(QString id, QString password, QString name)
     }
 }
 
-template<class T>
-QString server::getName_delivery(QString column, T value)
+
+QString server::getName_delivery(QString column, QString value)
 {
+    QSqlDatabase database;
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("waimai.db");
+    if(!database.open()){
+        qDebug()<<"open error! "<<database.lastError();
+    }
+    QSqlQuery query;
     QString ret;
-    QString cmd = "select name from delivery where :colum = :value";
+    QString cmd = "select name from delivery where "+column+" = "+"\'"+value+"\'";
     query.prepare(cmd);
-    query.bindValue(":column", column);
     query.bindValue(":value", value);
     if(!query.exec()){
         qDebug()<<"exec error: "<<cmd;
     }
     else{
+        query.next();
         ret = query.value(0).toString();
     }
     return ret;
-}
-
-template<class T>
-void server::editName_delivery(QString column, T value, QString new_name)
-{
-    QString cmd = "update from delivery set name = :name where :colum = :value";
-    query.prepare(cmd);
-    query.bindValue(":column", column);
-    query.bindValue(":value", value);
-    query.bindValue(":name", new_name);
-    if(!query.exec()){
-        qDebug()<<"exec error: "<<cmd;
-    }
 }

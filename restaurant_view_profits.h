@@ -12,7 +12,7 @@ class restaurant_view_profits : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit restaurant_view_profits(QWidget *parent = nullptr);
+    explicit restaurant_view_profits(double profit, QWidget *parent = nullptr);
     ~restaurant_view_profits();
 
 private:

@@ -6,18 +6,19 @@
 #include<QPushButton>
 
 
-customer_rank::customer_rank(QString restaurant_name, QWidget *parent)
+customer_rank::customer_rank(QString a, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::customer_rank)
 {
     ui->setupUi(this);
     server* editinfo = new server();
+    restaurant_name = a;
 
     connect(ui->pushButton, &QPushButton::clicked, this, &QMainWindow::close);
 
-    connect(ui->lineEdit, &QLineEdit::returnPressed, [&](){
+    connect(ui->lineEdit, &QLineEdit::returnPressed, [=](){
         double new_rank = ui->lineEdit->text().toDouble();
-        editinfo->editRank_restaurant("name", restaurant_name, new_rank);
+        editinfo->editRank_restaurant("id", restaurant_name, new_rank);
     });
     delete editinfo;
 }

@@ -8,7 +8,9 @@ component_dish_for_restaurant::component_dish_for_restaurant(QString name, QStri
     ui->setupUi(this);
     ui->name->setText(name);
     ui->price->display(price);
-    ui->picture->setPixmap(QPixmap(pciture_file_path));
+    QPixmap p = QPixmap(pciture_file_path);
+    QPixmap q = p.scaled(ui->picture->size(), Qt::KeepAspectRatio);
+    ui->picture->setPixmap(q);
     connect(ui->deletebutton, &QPushButton::clicked, [&](){
         emit deleted();
     });
